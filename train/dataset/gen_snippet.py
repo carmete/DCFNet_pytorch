@@ -3,15 +3,16 @@ import json
 
 
 def check_size(frame_sz, bbox):
+    """Only accept objects >10% and <75% of the total frame."""
     min_ratio = 0.1
     max_ratio = 0.75
-    # only accept objects >10% and <75% of the total frame
     area_ratio = np.sqrt((bbox[2]-bbox[0])*(bbox[3]-bbox[1])/float(np.prod(frame_sz)))
     ok = (area_ratio > min_ratio) and (area_ratio < max_ratio)
     return ok
 
 
 def check_borders(frame_sz, bbox):
+    """Only accept objects that ... ???."""
     dist_from_border = 0.05 * (bbox[2] - bbox[0] + bbox[3] - bbox[1])/2
     ok = (bbox[0] > dist_from_border) and (bbox[1] > dist_from_border) and \
          ((frame_sz[0] - bbox[2]) > dist_from_border) and \
